@@ -1,0 +1,6 @@
+from pathlib import Path
+
+EXPERIMENTS_FOLDER = Path("artifacts")
+MODELS_FOLDER_NAME = Path("models")
+
+MODELS_FOLDER = EXPERIMENTS_FOLDER / MODELS_FOLDER_NAME

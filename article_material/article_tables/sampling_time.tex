@@ -1,0 +1,105 @@
+\begin{table}[htbp]
+\centering
+\caption{Results for metric: sampling time}
+\label{tab:sampling time_updated}
+\resizebox{\textwidth}{!}{\begin{tabular}{
+l
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r
+}
+    \toprule[0.8pt]
+     \textbf{Method} & \multicolumn{3}{c}{\textbf{Adult}}
+ & \multicolumn{3}{c}{\textbf{Beijing}}
+ & \multicolumn{3}{c}{\textbf{Default}}
+ & \multicolumn{3}{c}{\textbf{Diabetes}}
+ & \multicolumn{3}{c}{\textbf{Magic}}
+ & \multicolumn{3}{c}{\textbf{News}}
+ & \multicolumn{3}{c}{\textbf{Shoppers}}
+ & \textbf{Avg. Rank} \\
+    \midrule 
+    CTGAN & 1.9 & \footnotesize{$\pm 0.8$} & ~~(5)
+ & 2.4 & \footnotesize{$\pm 0.7$} & ~~(5)
+ & 2.4 & \footnotesize{$\pm 0.3$} & ~~(5)
+ & 6.3 & \footnotesize{$\pm 0.4$} & ~~(5)
+ & 1.1 & \footnotesize{$\pm 0.2$} & ~~(5)
+ & 4.1 & \footnotesize{$\pm 0.2$} & ~~(5)
+ & 1.1 & \footnotesize{$\pm 0.3$} & ~~(5)
+ & 5.00 \\
+    TVAE & 1.2 & \footnotesize{$\pm 0.4$} & ~~(4)
+ & 1.9 & \footnotesize{$\pm 0.8$} & ~~(4)
+ & 1.9 & \footnotesize{$\pm 0.4$} & ~~(4)
+ & 6.1 & \footnotesize{$\pm 2.8$} & ~~(4)
+ & 0.7 & \footnotesize{$\pm 0.2$} & ~~(4)
+ & 4.0 & \footnotesize{$\pm 2.1$} & ~~(4)
+ & 0.6 & \footnotesize{$\pm 0.1$} & ~~(4)
+ & 4.00 \\
+    GReaT & 354.0 & \footnotesize{$\pm 21.5$} & ~~(13)
+ & 232.4 & \footnotesize{$\pm 1.5$} & ~~(13)
+ & 534.2 & \footnotesize{$\pm 5.8$} & ~~(13)
+ & \multicolumn{2}{c}{*} & ~~(13) & 104.0 & \footnotesize{$\pm 2.3$} & ~~(13)
+ & \multicolumn{2}{c}{*} & ~~(13) & 156.2 & \footnotesize{$\pm 104.1$} & ~~(13)
+ & 13.00 \\
+    STaSy & 48.9 & \footnotesize{$\pm 75.9$} & ~~(11)
+ & 13.4 & \footnotesize{$\pm 0.5$} & ~~(9)
+ & 16.9 & \footnotesize{$\pm 11.1$} & ~~(10)
+ & 5081.2 & \footnotesize{$\pm{0.0000}$} & ~~(12) & 5.8 & \footnotesize{$\pm 3.6$} & ~~(11)
+ & 18.9 & \footnotesize{$\pm 8.2$} & ~~(9)
+ & 7.0 & \footnotesize{$\pm 3.4$} & ~~(10)
+ & 10.29 \\
+    CoDi & 8.8 & \footnotesize{$\pm 0.2$} & ~~(7)
+ & 9.2 & \footnotesize{$\pm 0.3$} & ~~(8)
+ & 6.9 & \footnotesize{$\pm 0.2$} & ~~(8)
+ & 635.4 & \footnotesize{$\pm{0.0000}$} & ~~(11) & 3.5 & \footnotesize{$\pm 0.2$} & ~~(9)
+ & 8.3 & \footnotesize{$\pm 0.3$} & ~~(6)
+ & 3.0 & \footnotesize{$\pm 0.2$} & ~~(7)
+ & 8.00 \\
+    TabSyn & 5.0 & \footnotesize{$\pm 0.2$} & ~~(6)
+ & 5.4 & \footnotesize{$\pm 0.4$} & ~~(6)
+ & 5.2 & \footnotesize{$\pm 0.6$} & ~~(6)
+ & 15.6 & \footnotesize{$\pm 1.7$} & ~~(6)
+ & 2.6 & \footnotesize{$\pm 0.2$} & ~~(7)
+ & 11.1 & \footnotesize{$\pm 1.7$} & ~~(7)
+ & 2.0 & \footnotesize{$\pm 0.2$} & ~~(6)
+ & 6.29 \\
+    TabDiff & 10.8 & \footnotesize{$\pm 0.5$} & ~~(8)
+ & 9.0 & \footnotesize{$\pm 0.4$} & ~~(7)
+ & 9.6 & \footnotesize{$\pm 0.3$} & ~~(9)
+ & 176.5 & \footnotesize{$\pm 1.4$} & ~~(9)
+ & 4.4 & \footnotesize{$\pm 0.4$} & ~~(10)
+ & 16.2 & \footnotesize{$\pm 0.4$} & ~~(8)
+ & 6.0 & \footnotesize{$\pm 0.5$} & ~~(9)
+ & 8.57 \\
+    \midrule
+    FF & 0.5 & \footnotesize{$\pm 0.2$} & ~~(3)
+ & 0.6 & \footnotesize{$\pm 0.1$} & ~~(2)
+ & 0.9 & \footnotesize{$\pm 0.1$} & ~~(1)
+ & 0.8 & \footnotesize{$\pm 0.1$} & ~~(2)
+ & 0.1 & \footnotesize{$\pm 0.0$} & ~~(3)
+ & 2.5 & \footnotesize{$\pm 0.2$} & ~~(3)
+ & 0.2 & \footnotesize{$\pm 0.0$} & ~~(1)
+ & 2.14 \\
+    SM & 15.5 & \footnotesize{$\pm 0.4$} & ~~(9)
+ & 25.8 & \footnotesize{$\pm 0.7$} & ~~(11)
+ & 35.0 & \footnotesize{$\pm 0.7$} & ~~(11)
+ & 137.6 & \footnotesize{$\pm 0.9$} & ~~(8)
+ & 2.7 & \footnotesize{$\pm 0.3$} & ~~(8)
+ & 131.3 & \footnotesize{$\pm 2.8$} & ~~(12)
+ & 10.6 & \footnotesize{$\pm 0.3$} & ~~(11)
+ & 10.00 \\
+    TabPC & 38.9 & \footnotesize{$\pm 0.6$} & ~~(10)
+ & 24.7 & \footnotesize{$\pm 0.5$} & ~~(10)
+ & 5.4 & \footnotesize{$\pm 0.4$} & ~~(7)
+ & 63.4 & \footnotesize{$\pm 2.6$} & ~~(7)
+ & 1.7 & \footnotesize{$\pm 0.2$} & ~~(6)
+ & 92.0 & \footnotesize{$\pm 3.5$} & ~~(11)
+ & 5.0 & \footnotesize{$\pm 0.2$} & ~~(8)
+ & 8.43 \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+\end{table}

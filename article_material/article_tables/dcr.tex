@@ -1,0 +1,104 @@
+\begin{table}[htbp]
+\centering
+\caption{Results for metric: dcr}
+\label{tab:dcr_updated}
+\resizebox{\textwidth}{!}{\begin{tabular}{
+l
+r@{}l
+r@{}l
+r@{}l
+r@{}l
+r@{}l
+r@{}l
+r@{}l
+}
+    \toprule[0.8pt]
+     \textbf{Method} & \multicolumn{2}{c}{\textbf{Adult}}
+ & \multicolumn{2}{c}{\textbf{Beijing}}
+ & \multicolumn{2}{c}{\textbf{Default}}
+ & \multicolumn{2}{c}{\textbf{Diabetes}}
+ & \multicolumn{2}{c}{\textbf{Magic}}
+ & \multicolumn{2}{c}{\textbf{News}}
+ & \multicolumn{2}{c}{\textbf{Shoppers}}
+ \\
+    \midrule 
+    CTGAN & 0.4838 & \footnotesize{$\pm 0.0184$}
+ & 0.4969 & \footnotesize{$\pm 0.0149$}
+ & 0.4970 & \footnotesize{$\pm 0.0047$}
+ & 0.5041 & \footnotesize{$\pm 0.0047$}
+ & 0.4972 & \footnotesize{$\pm 0.0060$}
+ & 0.4944 & \footnotesize{$\pm 0.0014$}
+ & 0.4934 & \footnotesize{$\pm 0.0562$}
+ \\
+    TVAE & 0.5027 & \footnotesize{$\pm 0.0119$}
+ & 0.4892 & \footnotesize{$\pm 0.0145$}
+ & 0.5024 & \footnotesize{$\pm 0.0046$}
+ & 0.3618 & \footnotesize{$\pm 0.2028$}
+ & 0.4958 & \footnotesize{$\pm 0.0021$}
+ & 0.5104 & \footnotesize{$\pm 0.0069$}
+ & 0.4780 & \footnotesize{$\pm 0.0304$}
+ \\
+    GReaT & 0.5194 & \footnotesize{$\pm 0.0042$}
+ & 0.5124 & \footnotesize{$\pm 0.0040$}
+ & 0.4877 & \footnotesize{$\pm 0.0028$}
+ & \multicolumn{2}{c}{*} & 0.5131 & \footnotesize{$\pm 0.0045$}
+ & \multicolumn{2}{c}{*} & 0.4934 & \footnotesize{$\pm 0.0046$}
+ \\
+    STaSy & 0.5020 & \footnotesize{$\pm 0.0052$}
+ & 0.5047 & \footnotesize{$\pm 0.0030$}
+ & 0.5061 & \footnotesize{$\pm 0.0048$}
+ & 0.9974 & \footnotesize{$\pm{0.0000}$} & 0.5103 & \footnotesize{$\pm 0.0053$}
+ & 0.5029 & \footnotesize{$\pm 0.0104$}
+ & 0.4866 & \footnotesize{$\pm 0.0329$}
+ \\
+    CoDi & 0.5021 & \footnotesize{$\pm 0.0055$}
+ & 0.5057 & \footnotesize{$\pm 0.0061$}
+ & 0.5053 & \footnotesize{$\pm 0.0066$}
+ & 0.5048 & \footnotesize{$\pm{0.0000}$} & 0.5180 & \footnotesize{$\pm 0.0035$}
+ & 0.4976 & \footnotesize{$\pm 0.0021$}
+ & 0.5057 & \footnotesize{$\pm 0.0060$}
+ \\
+    TabSyn & 0.5069 & \footnotesize{$\pm 0.0012$}
+ & 0.5022 & \footnotesize{$\pm 0.0016$}
+ & 0.5084 & \footnotesize{$\pm 0.0020$}
+ & 0.5071 & \footnotesize{$\pm 0.0018$}
+ & 0.5045 & \footnotesize{$\pm 0.0029$}
+ & 0.4953 & \footnotesize{$\pm 0.0021$}
+ & 0.5069 & \footnotesize{$\pm 0.0044$}
+ \\
+    TabDiff & 0.5488 & \footnotesize{$\pm 0.0071$}
+ & 0.5139 & \footnotesize{$\pm 0.0025$}
+ & 0.5221 & \footnotesize{$\pm 0.0021$}
+ & 0.5181 & \footnotesize{$\pm 0.0079$}
+ & 0.5011 & \footnotesize{$\pm 0.0032$}
+ & 0.5091 & \footnotesize{$\pm 0.0026$}
+ & 0.5120 & \footnotesize{$\pm 0.0028$}
+ \\
+    \midrule
+    FF & 0.5034 & \footnotesize{$\pm 0.0011$}
+ & 0.4978 & \footnotesize{$\pm 0.0011$}
+ & 0.5127 & \footnotesize{$\pm 0.0018$}
+ & 0.5057 & \footnotesize{$\pm 0.0028$}
+ & 0.4876 & \footnotesize{$\pm 0.0024$}
+ & 0.4852 & \footnotesize{$\pm 0.0024$}
+ & 0.5021 & \footnotesize{$\pm 0.0043$}
+ \\
+    SM & 0.5498 & \footnotesize{$\pm 0.0014$}
+ & 0.5545 & \footnotesize{$\pm 0.0041$}
+ & 0.5133 & \footnotesize{$\pm 0.0025$}
+ & 0.5067 & \footnotesize{$\pm 0.0022$}
+ & 0.5348 & \footnotesize{$\pm 0.0023$}
+ & 0.4942 & \footnotesize{$\pm 0.0025$}
+ & 0.5091 & \footnotesize{$\pm 0.0048$}
+ \\
+    TabPC & 0.5431 & \footnotesize{$\pm 0.0047$}
+ & 0.5162 & \footnotesize{$\pm 0.0020$}
+ & 0.5072 & \footnotesize{$\pm 0.0031$}
+ & 0.5208 & \footnotesize{$\pm 0.0025$}
+ & 0.5295 & \footnotesize{$\pm 0.0028$}
+ & 0.4943 & \footnotesize{$\pm 0.0025$}
+ & 0.5128 & \footnotesize{$\pm 0.0024$}
+ \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+\end{table}

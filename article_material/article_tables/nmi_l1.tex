@@ -1,0 +1,98 @@
+\begin{table}[htbp]
+\centering
+\caption{Results for metric: nmi l1}
+\label{tab:nmi l1_updated}
+\resizebox{\textwidth}{!}{\begin{tabular}{
+l
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r
+}
+    \toprule[0.8pt]
+     \textbf{Method} & \multicolumn{3}{c}{\textbf{Adult}}
+ & \multicolumn{3}{c}{\textbf{Beijing}}
+ & \multicolumn{3}{c}{\textbf{Default}}
+ & \multicolumn{3}{c}{\textbf{Diabetes}}
+ & \multicolumn{3}{c}{\textbf{Magic}}
+ & \multicolumn{3}{c}{\textbf{News}}
+ & \multicolumn{3}{c}{\textbf{Shoppers}}
+ & \textbf{Avg. Rank} \\
+    \midrule 
+    CTGAN & 0.0263 & \footnotesize{$\pm 0.0035$} & ~~(7)
+ & 0.0333 & \footnotesize{$\pm 0.0097$} & ~~(8)
+ & 0.0463 & \footnotesize{$\pm 0.0050$} & ~~(9)
+ & 0.0070 & \footnotesize{$\pm 0.0004$} & ~~(6)
+ & 0.0406 & \footnotesize{$\pm 0.0037$} & ~~(9)
+ & 0.0152 & \footnotesize{$\pm 0.0007$} & ~~(9)
+ & 0.0385 & \footnotesize{$\pm 0.0079$} & ~~(12)
+ & 8.57 \\
+    TVAE & 0.0280 & \footnotesize{$\pm 0.0023$} & ~~(8)
+ & 0.0695 & \footnotesize{$\pm 0.0137$} & ~~(12)
+ & 0.0206 & \footnotesize{$\pm 0.0021$} & ~~(6)
+ & 0.0187 & \footnotesize{$\pm 0.0081$} & ~~(12)
+ & 0.0195 & \footnotesize{$\pm 0.0022$} & ~~(5)
+ & 0.0137 & \footnotesize{$\pm 0.0006$} & ~~(7)
+ & 0.0168 & \footnotesize{$\pm 0.0017$} & ~~(7)
+ & 8.14 \\
+    GReaT & 0.0111 & \footnotesize{$\pm 0.0001$} & ~~(6)
+ & 0.0054 & \footnotesize{$\pm 0.0002$} & ~~(4)
+ & 0.0383 & \footnotesize{$\pm 0.0005$} & ~~(8)
+ & \multicolumn{2}{c}{*} & ~~(1) & 0.0224 & \footnotesize{$\pm 0.0005$} & ~~(7)
+ & \multicolumn{2}{c}{*} & ~~(1) & 0.0104 & \footnotesize{$\pm 0.0006$} & ~~(5)
+ & 4.57 \\
+    STaSy & 0.0097 & \footnotesize{$\pm 0.0010$} & ~~(5)
+ & 0.0071 & \footnotesize{$\pm 0.0017$} & ~~(5)
+ & 0.0124 & \footnotesize{$\pm 0.0037$} & ~~(5)
+ & 0.0093 & \footnotesize{$\pm{0.0000}$} & ~~(11) & 0.0160 & \footnotesize{$\pm 0.0087$} & ~~(4)
+ & 0.0070 & \footnotesize{$\pm 0.0010$} & ~~(4)
+ & 0.0091 & \footnotesize{$\pm 0.0005$} & ~~(4)
+ & 5.43 \\
+    CoDi & 0.0352 & \footnotesize{$\pm 0.0008$} & ~~(9)
+ & 0.0085 & \footnotesize{$\pm 0.0031$} & ~~(7)
+ & 0.0365 & \footnotesize{$\pm 0.0031$} & ~~(7)
+ & 0.0073 & \footnotesize{$\pm{0.0000}$} & ~~(7) & 0.0205 & \footnotesize{$\pm 0.0021$} & ~~(6)
+ & 0.0100 & \footnotesize{$\pm 0.0005$} & ~~(6)
+ & 0.0227 & \footnotesize{$\pm 0.0023$} & ~~(8)
+ & 7.14 \\
+    TabSyn & 0.0051 & \footnotesize{$\pm 0.0006$} & ~~(3)
+ & 0.0043 & \footnotesize{$\pm 0.0007$} & ~~(3)
+ & 0.0045 & \footnotesize{$\pm 0.0005$} & ~~(2)
+ & 0.0026 & \footnotesize{$\pm 0.0001$} & ~~(3)
+ & 0.0025 & \footnotesize{$\pm 0.0002$} & ~~(1)
+ & 0.0048 & \footnotesize{$\pm 0.0010$} & ~~(2)
+ & 0.0042 & \footnotesize{$\pm 0.0006$} & ~~(3)
+ & 2.43 \\
+    TabDiff & 0.0035 & \footnotesize{$\pm 0.0002$} & ~~(2)
+ & 0.0022 & \footnotesize{$\pm 0.0001$} & ~~(1)
+ & 0.0033 & \footnotesize{$\pm 0.0003$} & ~~(1)
+ & 0.0030 & \footnotesize{$\pm 0.0024$} & ~~(4)
+ & 0.0035 & \footnotesize{$\pm 0.0009$} & ~~(2)
+ & 0.0080 & \footnotesize{$\pm 0.0025$} & ~~(5)
+ & 0.0035 & \footnotesize{$\pm 0.0001$} & ~~(2)
+ & 2.43 \\
+    \midrule
+    FF & 0.0406 & \footnotesize{$\pm{0.0000}$} & ~~(10) & 0.0363 & \footnotesize{$\pm{0.0000}$} & ~~(9) & 0.0661 & \footnotesize{$\pm{0.0000}$} & ~~(10) & 0.0076 & \footnotesize{$\pm{0.0000}$} & ~~(9) & 0.1244 & \footnotesize{$\pm{0.0000}$} & ~~(10) & 0.0209 & \footnotesize{$\pm{0.0000}$} & ~~(10) & 0.0230 & \footnotesize{$\pm{0.0000}$} & ~~(9) & 9.57 \\
+    SM & 0.0070 & \footnotesize{$\pm 0.0005$} & ~~(4)
+ & 0.0073 & \footnotesize{$\pm 0.0005$} & ~~(6)
+ & 0.0099 & \footnotesize{$\pm 0.0006$} & ~~(4)
+ & 0.0066 & \footnotesize{$\pm 0.0008$} & ~~(5)
+ & 0.0301 & \footnotesize{$\pm 0.0021$} & ~~(8)
+ & 0.0147 & \footnotesize{$\pm 0.0006$} & ~~(8)
+ & 0.0135 & \footnotesize{$\pm 0.0007$} & ~~(6)
+ & 5.86 \\
+    TabPC & 0.0021 & \footnotesize{$\pm 0.0004$} & ~~(1)
+ & 0.0027 & \footnotesize{$\pm 0.0002$} & ~~(2)
+ & 0.0051 & \footnotesize{$\pm 0.0003$} & ~~(3)
+ & 0.0016 & \footnotesize{$\pm 0.0003$} & ~~(2)
+ & 0.0045 & \footnotesize{$\pm 0.0007$} & ~~(3)
+ & 0.0060 & \footnotesize{$\pm 0.0006$} & ~~(3)
+ & 0.0025 & \footnotesize{$\pm 0.0003$} & ~~(1)
+ & 2.14 \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+\end{table}

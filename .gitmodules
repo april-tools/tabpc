@@ -1,0 +1,4 @@
+[submodule "cirkit"]
+	path = cirkit
+	url = https://github.com/dylanponsford/cirkit.git
+	branch = cirkit_tabpc

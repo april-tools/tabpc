@@ -1,0 +1,107 @@
+\begin{table}[htbp]
+\centering
+\caption{Results for metric: training time}
+\label{tab:training time_updated}
+\resizebox{\textwidth}{!}{\begin{tabular}{
+l
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r@{}l@{}r
+r
+}
+    \toprule[0.8pt]
+     \textbf{Method} & \multicolumn{3}{c}{\textbf{Adult}}
+ & \multicolumn{3}{c}{\textbf{Beijing}}
+ & \multicolumn{3}{c}{\textbf{Default}}
+ & \multicolumn{3}{c}{\textbf{Diabetes}}
+ & \multicolumn{3}{c}{\textbf{Magic}}
+ & \multicolumn{3}{c}{\textbf{News}}
+ & \multicolumn{3}{c}{\textbf{Shoppers}}
+ & \textbf{Avg. Rank} \\
+    \midrule 
+    CTGAN & 3798.4 & \footnotesize{$\pm 173.8$} & ~~(9)
+ & 4126.4 & \footnotesize{$\pm 315.6$} & ~~(9)
+ & 3836.4 & \footnotesize{$\pm 235.4$} & ~~(9)
+ & 13872.4 & \footnotesize{$\pm 621.6$} & ~~(9)
+ & 1797.2 & \footnotesize{$\pm 160.7$} & ~~(7)
+ & 8221.2 & \footnotesize{$\pm 761.1$} & ~~(10)
+ & 1453.0 & \footnotesize{$\pm 68.6$} & ~~(7)
+ & 8.57 \\
+    TVAE & 1309.6 & \footnotesize{$\pm 102.3$} & ~~(6)
+ & 1482.4 & \footnotesize{$\pm 68.8$} & ~~(6)
+ & 1705.0 & \footnotesize{$\pm 102.2$} & ~~(6)
+ & 3863.8 & \footnotesize{$\pm 194.3$} & ~~(6)
+ & 834.6 & \footnotesize{$\pm 85.1$} & ~~(6)
+ & 4588.0 & \footnotesize{$\pm 125.7$} & ~~(8)
+ & 579.2 & \footnotesize{$\pm 72.7$} & ~~(6)
+ & 6.29 \\
+    GReaT & 16714.2 & \footnotesize{$\pm 573.1$} & ~~(12)
+ & 13739.2 & \footnotesize{$\pm 371.1$} & ~~(11)
+ & 26138.4 & \footnotesize{$\pm 691.2$} & ~~(13)
+ & 20472.0 & \footnotesize{$\pm{0.0000}$} & ~~(10) & 6808.0 & \footnotesize{$\pm 244.4$} & ~~(11)
+ & 63508.5 & \footnotesize{$\pm 39867.5$} & ~~(13)
+ & 5238.4 & \footnotesize{$\pm 2630.3$} & ~~(11)
+ & 11.57 \\
+    STaSy & 6526.5 & \footnotesize{$\pm 263.0$} & ~~(10)
+ & 7034.0 & \footnotesize{$\pm 299.6$} & ~~(10)
+ & 6300.4 & \footnotesize{$\pm 758.6$} & ~~(10)
+ & 21701.6 & \footnotesize{$\pm 605.7$} & ~~(11)
+ & 4949.2 & \footnotesize{$\pm 355.9$} & ~~(10)
+ & 7079.8 & \footnotesize{$\pm 693.4$} & ~~(9)
+ & 4385.0 & \footnotesize{$\pm 402.8$} & ~~(10)
+ & 10.00 \\
+    CoDi & 25186.2 & \footnotesize{$\pm 593.2$} & ~~(13)
+ & 27023.8 & \footnotesize{$\pm 396.6$} & ~~(13)
+ & 20233.8 & \footnotesize{$\pm 314.5$} & ~~(12)
+ & 1027557.0 & \footnotesize{$\pm{0.0000}$} & ~~(13) & 9617.8 & \footnotesize{$\pm 112.0$} & ~~(12)
+ & 20495.5 & \footnotesize{$\pm 394.9$} & ~~(12)
+ & 8238.2 & \footnotesize{$\pm 242.1$} & ~~(12)
+ & 12.43 \\
+    TabSyn & 3082.5 & \footnotesize{$\pm 516.0$} & ~~(8)
+ & 3321.2 & \footnotesize{$\pm 327.2$} & ~~(8)
+ & 3438.5 & \footnotesize{$\pm 578.1$} & ~~(8)
+ & 6506.2 & \footnotesize{$\pm 389.9$} & ~~(7)
+ & 2270.8 & \footnotesize{$\pm 369.8$} & ~~(9)
+ & 3746.5 & \footnotesize{$\pm 395.9$} & ~~(7)
+ & 2441.2 & \footnotesize{$\pm 192.9$} & ~~(8)
+ & 7.86 \\
+    TabDiff & 11604.6 & \footnotesize{$\pm 2638.3$} & ~~(11)
+ & 14418.4 & \footnotesize{$\pm 3527.0$} & ~~(12)
+ & 13899.0 & \footnotesize{$\pm 2724.0$} & ~~(11)
+ & 32069.2 & \footnotesize{$\pm 2849.5$} & ~~(12)
+ & 11643.4 & \footnotesize{$\pm 3487.7$} & ~~(13)
+ & 16040.0 & \footnotesize{$\pm 2865.3$} & ~~(11)
+ & 10320.8 & \footnotesize{$\pm 2256.3$} & ~~(13)
+ & 11.86 \\
+    \midrule
+    FF & 1.1 & \footnotesize{$\pm 0.3$} & ~~(1)
+ & 1.7 & \footnotesize{$\pm 0.4$} & ~~(1)
+ & 2.5 & \footnotesize{$\pm 0.3$} & ~~(1)
+ & 2.4 & \footnotesize{$\pm 0.4$} & ~~(2)
+ & 0.5 & \footnotesize{$\pm 0.0$} & ~~(1)
+ & 7.1 & \footnotesize{$\pm 0.8$} & ~~(3)
+ & 0.5 & \footnotesize{$\pm 0.0$} & ~~(1)
+ & 1.43 \\
+    SM & 59.7 & \footnotesize{$\pm 6.9$} & ~~(4)
+ & 106.3 & \footnotesize{$\pm 5.8$} & ~~(4)
+ & 163.9 & \footnotesize{$\pm 4.3$} & ~~(5)
+ & 293.4 & \footnotesize{$\pm 7.8$} & ~~(5)
+ & 15.4 & \footnotesize{$\pm 0.7$} & ~~(4)
+ & 268.4 & \footnotesize{$\pm 41.3$} & ~~(4)
+ & 47.6 & \footnotesize{$\pm 0.8$} & ~~(4)
+ & 4.29 \\
+    TabPC & 272.5 & \footnotesize{$\pm 18.8$} & ~~(5)
+ & 581.6 & \footnotesize{$\pm 40.3$} & ~~(5)
+ & 78.3 & \footnotesize{$\pm 16.2$} & ~~(4)
+ & 247.9 & \footnotesize{$\pm 22.3$} & ~~(4)
+ & 38.9 & \footnotesize{$\pm 1.9$} & ~~(5)
+ & 404.0 & \footnotesize{$\pm 232.2$} & ~~(5)
+ & 50.6 & \footnotesize{$\pm 0.8$} & ~~(5)
+ & 4.71 \\
+    \bottomrule[1.0pt]
+\end{tabular}}
+\end{table}
