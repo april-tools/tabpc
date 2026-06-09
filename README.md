@@ -12,6 +12,18 @@ make install
 ```
 to install all the requirements.
 
+### Initialising the `cirkit` submodule
+
+To use the intended version of `cirkit`, the submodule in the repo must first be initialised and brought up to date. This can be done by running the following commands:
+```bash
+git submodule init
+```
+This will initialise your local configuration file. Follow this by running:
+```bash
+git submodule update
+```
+This fetches the data from the `cirkit` project and checks out the correct commit for the repo.
+
 ### Downloading datasets
 
 All datasets are publicly available.
