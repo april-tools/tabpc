@@ -162,13 +162,12 @@ Finally, we also plan to upload our final trained model checkpoints and all gene
 
 If you use this repository, please don't forget to cite the corresponding paper:
 ```bibtex
-@misc{scassola2026soberinglooktabulardata,
-      title={A Sobering Look at Tabular Data Generation via Probabilistic Circuits}, 
-      author={Davide Scassola and Dylan Ponsford and Adrián Javaloy and Sebastiano Saccani and Luca Bortolussi and Henry Gouk and Antonio Vergari},
-      year={2026},
-      eprint={2603.23016},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2603.23016}, 
+@inproceedings{
+    scassola2026sobering,
+    title={A Sobering Look at Tabular Data Generation via Probabilistic Circuits},
+    author={Davide Scassola and Dylan Ponsford and Adri{\'a}n Javaloy and Sebastiano Saccani and Luca Bortolussi and Henry Gouk and Antonio Vergari},
+    booktitle={Forty-Second Annual Conference on Uncertainty in Artificial Intelligence},
+    year={2026},
+    url={https://openreview.net/forum?id=QndFLaQBSj}
 }
 ```
