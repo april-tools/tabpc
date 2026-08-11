@@ -139,7 +139,7 @@ def conditional_sample(
             print(f"Generating sample {i+1}/{n_samples}...")
             with Timer() as generation_timer:
                 if conditioning_percentage == 0.0:
-                    df = model.generate(device=DEVICE, batch_size=uncond_batch_size, num_to_generate=num_to_generate)
+                    df = model.generate(device=DEVICE, batch_size=uncond_batch_size, num_to_generate=num_to_generate, backward=True)
                     mask = np.ones_like(df, dtype=bool)  # all values are masked (i.e., no conditioning)
                 elif conditioning_percentage == 1.0:
                     df = df_to_mask.copy()  # all values are conditioned, so we return the test set as the generated samples
@@ -267,7 +267,7 @@ if __name__ == "__main__":
     parser.add_argument('--impute', '-i', action='store_true', help='Whether to run the imputation of the masks (default: False)')
     parser.add_argument('--scrape', '-r', action='store_true', help='Whether to scrape the results and summarize them in csv files (default: False)')
     parser.add_argument('--overwrite', '-o', action='store_true', help='Whether to overwrite existing samples and times (default: False)')
-    parser.add_argument('--uncond-batch-size', type=int, default=None, help='Batch size for sampling and imputation (default: None, which enables automatic selection based on GPU memory)')
+    parser.add_argument('--uncond-batch-size', default=None, help='Batch size for sampling and imputation (default: None, which enables automatic selection based on GPU memory)')
     parser.add_argument('--cond-batch-size', type=int, default=10, help='Batch size for conditional sampling (default: 10, can be tuned for better performance)')
     parser.add_argument('--use-train-set-for-conditioning', action='store_true', help='Whether to use the train set for conditioning (default: False, which means using the test set for conditioning)')
     parser.add_argument('--do-plots', action='store_true', help='Whether to generate plots from the results after scraping (default: False)')
@@ -293,6 +293,11 @@ if __name__ == "__main__":
     experiment_paths = os.listdir(args.models_folder)
     experiment_paths = [os.path.join(args.models_folder, path) for path in experiment_paths]
 
+    if (args.uncond_batch_size is None) or (args.uncond_batch_size == "None"):
+        uncond_batch_size = None
+    else:
+        uncond_batch_size = int(args.uncond_batch_size)
+
     # 2) Conditionally sample from 0% to 100% of the features being conditioned, with a step of 10%
     if args.sample:
         for experiment_path in experiment_paths:
@@ -301,7 +306,7 @@ if __name__ == "__main__":
                     experiment_path,
                     n_samples=1,
                     overwrite=args.overwrite,
-                    uncond_batch_size=args.uncond_batch_size,
+                    uncond_batch_size=uncond_batch_size,
                     cond_batch_size=args.cond_batch_size,
                     use_train_set_for_conditioning=args.use_train_set_for_conditioning
                     )

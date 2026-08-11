@@ -81,3 +81,9 @@ TabPC,diabetes,0.9942,0.0004
 TabPC,magic,0.9902,0.0013
 TabPC,news,0.9936,0.0009
 TabPC,shoppers,0.9910,0.0014
+TabPFN,adult,0.9734,0.0006
+TabPFN,beijing,0.9869,0.0004
+TabPFN,default,0.9369,0.0005
+TabPFN,magic,0.9819,0.0014
+TabPFN,news,0.9224,0.0001
+TabPFN,shoppers,0.8846,0.0009

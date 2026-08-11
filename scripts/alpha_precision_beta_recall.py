@@ -141,23 +141,27 @@ def main(real_path, syn_path, info_path):
 
     quality_evaluator = eval_statistical.AlphaPrecision()
     qual_res = quality_evaluator.evaluate(X_real_loader, X_syn_loader)
-    qual_res = {
-        k: v for (k, v) in qual_res.items() if "naive" in k
-    }  # use the naive implementation of AlphaPrecision
+    # qual_res = {
+    #     k: v for (k, v) in qual_res.items() if "naive" in k
+    # }  # use the naive implementation of AlphaPrecision
 
     print('alpha precision: {:.6f}, beta recall: {:.6f}'.format(qual_res['delta_precision_alpha_naive'], qual_res['delta_coverage_beta_naive'] ))
+    print('\nNon-naive:')
+    print('alpha precision: {:.6f}, beta recall: {:.6f}'.format(qual_res["delta_precision_alpha_OC"], qual_res['delta_coverage_beta_OC'] ))
 
     Alpha_Precision_all = qual_res['delta_precision_alpha_naive']
     Beta_Recall_all = qual_res['delta_coverage_beta_naive']
+    Alpha_Precision_OC = qual_res['delta_precision_alpha_OC']
+    Beta_Recall_OC = qual_res['delta_coverage_beta_OC']
 
-    return Alpha_Precision_all, Beta_Recall_all
+    return Alpha_Precision_all, Beta_Recall_all, Alpha_Precision_OC, Beta_Recall_OC
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Evaluate synthetic data quality using Alpha Precision and Beta Recall.')
     parser.add_argument('--pattern', type=str, default="*.csv", help='Pattern to match generated files')
-    parser.add_argument('--target_folder', type=str, default=TARGET_FOLDER, help='Target folder for results')
-    parser.add_argument('--generated_data_folder', type=str, default=GENERATED_DATA_FOLDER, help='Generated data folder')
+    parser.add_argument('--target-folder', type=str, default=TARGET_FOLDER, help='Target folder for results')
+    parser.add_argument('--generated-data-folder', type=str, default=GENERATED_DATA_FOLDER, help='Generated data folder')
 
     args = parser.parse_args()
     pattern = args.pattern
@@ -193,7 +197,7 @@ if __name__ == "__main__":
             continue
 
         try:
-            Alpha_Precision_all, Beta_Recall_all = main(real_path, syn_path, info_path)
+            Alpha_Precision_all, Beta_Recall_all, Alpha_Precision_OC, Beta_Recall_OC = main(real_path, syn_path, info_path)
         except Exception as e:
             print(f"Error processing {generated_file}: {e}")
             continue
@@ -211,4 +215,23 @@ if __name__ == "__main__":
         with open(beta_result_path, 'w') as f:
             json.dump({
                 'beta_recall': Beta_Recall_all
+            }, f, indent=4)
+
+        alpha_oc_result_dir = os.path.join(os.path.dirname(generated_file).replace(generated_data_folder, target_folder), "alpha_precision_oc")
+        os.makedirs(alpha_oc_result_dir, exist_ok=True)
+        alpha_oc_result_path = os.path.join(alpha_oc_result_dir, os.path.basename(generated_file).replace('.csv', '.json'))
+
+        beta_oc_result_dir = os.path.join(os.path.dirname(generated_file).replace(generated_data_folder, target_folder), "beta_recall_oc")
+        os.makedirs(beta_oc_result_dir, exist_ok=True)
+        beta_oc_result_path = os.path.join(beta_oc_result_dir, os.path.basename(generated_file).replace('.csv', '.json'))
+
+        with open(alpha_oc_result_path, 'w') as f:
+            json.dump({
+                'alpha_precision_oc': Alpha_Precision_OC
+            }, f, indent=4)
+
+        # Then store beta recall
+        with open(beta_oc_result_path, 'w') as f:
+            json.dump({
+                'beta_recall_oc': Beta_Recall_OC
             }, f, indent=4)

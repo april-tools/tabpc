@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment
+.venv
+venv
+
+# Data
+/data/*
+!data/Info/
+*.npy
+*.npz
+*.csv
+
+
+# Artifacts
+*artifacts*
+*.png
+
+# Other
+.*
+!.vscode/launch.json
+nohup.out
+
+# pth
+*.pth
+
+# tex
+*.tex
+
+# wandb
+wandb/
+
+# src
+src/private_constants.py
+
+# Keep all files in notes folder
+!notes/
+!notes/**
+!article_material/**
+
+article_material/tabdiff_tables/*
+
+# .zip
+*.zip
+
+# .out
+*.out

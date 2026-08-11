@@ -17,6 +17,8 @@ METRIC_IS_ASCENDING = {
     # Note: True means that lower is better, False means that higher is better
     'alpha_precision': False,
     'beta_recall': False,
+    'alpha_precision_oc': False,
+    'beta_recall_oc': False,
     'mle': None, # Depends on dataset (some are regression, some are classification) 
     'lr_detection': False,
     'xgb_detection': False,
@@ -47,6 +49,7 @@ SORTED_METHODS = [
     'CoDi',
     'TabSyn',
     'TabDiff',
+    'TabPFN',
     'FullyFactorizedPreprocessed',
     'ShallowMixture',
     'TabPC',
@@ -65,6 +68,12 @@ SORTED_DATASETS = [
 REGRESSION_DATASETS = [
     'beijing',
     'news'
+]
+
+DROP_TABPFN = [
+    "dcr",
+    "training_time",
+    "num_parameters"
 ]
 
 
@@ -116,6 +125,12 @@ def main(
                 if not ((df['method'] == method) & (df['dataset'] == dataset)).any():
                     new_row = {'method': method, 'dataset': dataset, 'mean': np.nan, 'std': np.nan}
                     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+
+        # Drop rows with methods not in SORTED_METHODS
+        df = df[df['method'].isin(SORTED_METHODS)]
+
+        if metric_name in DROP_TABPFN:
+            df = df[df['method'] != 'TabPFN']
 
         if metric_name == 'mle':
             # MLE is a special case because for some datasets (regression) lower is better, while for others (classification) higher is better

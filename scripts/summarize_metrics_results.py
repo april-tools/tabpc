@@ -3,6 +3,7 @@ import sys
 import tqdm
 import numpy as np
 import pandas as pd
+import argparse
 
 sys.path.append('.')
 from src.util import find_files, load_json
@@ -28,6 +29,7 @@ SORTED_METHODS = [
     'TabDDPM',
     'TabSyn',
     'TabDiff',
+    'TabPFN',
     'SimpleFactors',
     'FullyFactorizedPreprocessed',
     'FullyFactorizedRandom',
@@ -179,7 +181,12 @@ def update_model_statistics(models_folder: str, target_folder: str, model_name: 
         results = load_json(results_file)
         training_time = results['train_report']['training_time']
         num_params_model = results['train_report']['num_parameters']
-        sampling_time = results['train_report']['generation_time']
+        # sampling_time = results['train_report']['generation_time']
+
+        samples_folder = os.path.join(experiment_folder, "new_samples")
+        sampling_times_json = load_json(os.path.join(samples_folder, "generation_times.json"))
+        sampling_time = sampling_times_json["0"]
+
         # method = get_method_name(experiment_folder)
         dataset = get_dataset_name(experiment_folder)
         training_times[dataset].append(training_time)
@@ -401,16 +408,38 @@ def summarize_ablation_metrics(*, results_folder, target_folder):
 
 
 if __name__ == "__main__":
-    # summarize_metrics(
-    #     results_folder='artifacts/metrics_results',
-    #     target_folder='artifacts/metrics_results_summary',
-    # )
+    parser = argparse.ArgumentParser()
 
+    parser.add_argument("--results-folder", type=str, required=True,
+                        help="Folder storing results of the structure {results-folder}/{method}/{dataset}/run_{idx}/{metrics_filename}.json")
+    parser.add_argument("--target-folder", type=str, required=True,
+                        help="Folder in which to store the summarised CSV result files. One folder containing the result CSV(s) is generated for each metric.")
+    parser.add_argument("--models-folder", default="",
+                        help="Folder where the trained model results are stored, used to extract training time, sampling time, and number of parameters for each method/dataset")
+    parser.add_argument("--use-old-protocol", action="store_true", default=False,
+                        help="Whether to summarise based on the old protocol of 1 model x 20 datasets. (Default: False)")
+    parser.add_argument("--update-model-stats", action="store_true", default=False,
+                        help="Whether to update the model statistics such as number of parameters, training and sampling time. (Default: False)")
+
+    args = parser.parse_args()
+
+    new_protocol = not args.use_old_protocol
+    
     summarize_metrics(
-        results_folder='artifacts/new_metrics_results',
-        target_folder='artifacts/new_metrics_results_summary',
-        new_protocol=True,
+        results_folder=args.results_folder,
+        target_folder=args.target_folder,
+        models_folder=args.models_folder,
+        new_protocol=new_protocol,
+        update_model_stats=args.update_model_stats,
     )
+    
+    # summarize_metrics(
+    #     results_folder='artifacts/TabPFN_metrics_new',
+    #     target_folder='artifacts/TabPFN_metrics_summary_new',
+    #     models_folder='',
+    #     new_protocol=True,
+    #     update_model_stats=False,
+    # )
 
     # summarize_ablation_metrics(
     #     results_folder='artifacts/ablation/metric_results',

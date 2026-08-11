@@ -11,18 +11,19 @@ from src.util import find_files
 SORTED_METHODS = [
     'CTGAN',
     'TVAE',
-    'GOGGLE',
+    # 'GOGGLE',
     'GReaT',
     'STaSy',
     'CoDi',
     'TabDDPM',
     'TabSyn',
     'TabDiff',
-    'SimpleFactors',
+    'TabPFN',
+    # 'SimpleFactors',
     'FullyFactorizedPreprocessed',
     'ShallowMixture',
     'TabPC',
-    'TabPC_conditional',
+    # 'TabPC_conditional',
 ]
 
 
@@ -37,6 +38,7 @@ def fix_method_name(method: str) -> str:
         'tabddpm': 'TabDDPM',
         'tabsyn': 'TabSyn',
         'tabdiff': 'TabDiff',
+        'tabpfn': 'TabPFN',
         'fullyfactorizedpreprocessed': 'FF',
         'shallowmixture': 'SM',
         'tabpc': 'TabPC',
@@ -174,7 +176,7 @@ def new_df_to_latex_table_w_ranks(df: pd.DataFrame, *, scientific: bool = False,
 
             row += cell if isinstance(cell, list) else fallback
         rows.append("    " + " & ".join(row) + " \\\\")
-        if method.lower() == "tabdiff":
+        if (method.lower() == "tabpfn") or ("TabPFN" not in methods and method.lower() == "tabdiff"):
             rows.append("    \\midrule")
     footer = (
         "    \\bottomrule[1.0pt]\n"

@@ -182,7 +182,7 @@ class ShallowMixture(Model):
 
         return train_info
 
-    def optimal_batch_size_for_sampling(self) -> int:
+    def optimal_batch_size_for_sampling(self, is_conditional: bool | None = False) -> int:
         """
         Determine the optimal batch size for sampling by measuring peak memory
         usage with a small test batch and calculating the max batch size that
@@ -207,7 +207,10 @@ class ShallowMixture(Model):
 
         # Test sampling with a small batch
         test_batch_size = 10
-        sampling_query = SamplingQuery(self.circuit)
+        if is_conditional:
+            sampling_query = SamplingQuery(self.circuit, backward=False)
+        else:
+            sampling_query = SamplingQuery(self.circuit, backward=True)
 
         torch.cuda.reset_peak_memory_stats(device)
         _ = sampling_query(num_samples=test_batch_size)[0]
@@ -275,11 +278,12 @@ class ShallowMixture(Model):
         batch_size: int | None = None,
         device: str | None = None,
         condition: torch.Tensor | None = None,
+        backward: bool | None = True,
     ) -> torch.Tensor:
 
         if device is not None:
             self.circuit.to(device)
-        sampling_query = SamplingQuery(self.circuit)
+        sampling_query = SamplingQuery(self.circuit, backward=backward)
         gc.collect()
         torch.cuda.empty_cache()
 
@@ -289,6 +293,7 @@ class ShallowMixture(Model):
         if condition is not None:
             condition = condition.to(device)
             observed_vars = ~condition.isnan()
+            conditional_sampling_query = SamplingQuery(self.circuit, backward=False) # cirkit doesn't currently support backward conditional sampling
 
         if batch_size is None:
             batch_size = self.optimal_batch_size_for_sampling()
@@ -302,7 +307,7 @@ class ShallowMixture(Model):
             if num_samples > 0:
                 with torch.no_grad():
                     if condition is not None:
-                        samples[start:end] = sampling_query(num_samples=num_samples, evidence=condition[start:end], ev_mask=observed_vars[start:end])[0]
+                        samples[start:end] = conditional_sampling_query(num_samples=num_samples, evidence=condition[start:end], ev_mask=observed_vars[start:end])[0]
                     else:
                         samples[start:end] = sampling_query(num_samples=num_samples)[0]
 

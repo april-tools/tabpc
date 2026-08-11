@@ -9,13 +9,11 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-import GPUtil
 import numpy as np
 import pandas as pd
 import torch
 from scipy import stats
 from torch import Tensor
-from torchmetrics.functional.clustering import mutual_info_score
 
 INT_IS_NUMERICAL_THRESHOLD = 20
 
@@ -88,6 +86,9 @@ def pickle_store(object, *, file: str):
 def get_available_device(
     mem_required: float = 0.05, verbose: bool = False, stop_if_no_free_gpu: bool = True
 ):
+    # This has been placed here to simplify working in different environments
+    import GPUtil
+    
     if not torch.cuda.is_available():
         return "cpu"
 
@@ -587,6 +588,9 @@ def bin_dataframe(
 
 
 def torch_mi_matrix(X: torch.Tensor) -> torch.Tensor:
+    # This has been placed here to simplify working in different environments
+    from torchmetrics.functional.clustering import mutual_info_score
+
     n = X.shape[1]
     mi_matrix = torch.zeros((n, n), device=X.device)
     for i in range(n):
@@ -651,6 +655,9 @@ def wait_available_gpu(
     """
     if not torch.cuda.is_available():
         raise RuntimeError("No NVIDIA GPUs (CUDA) available")
+    
+    # This has been placed here to simplify working in different environments
+    import GPUtil
 
     def pick_gpu():
         gpus = GPUtil.getGPUs()

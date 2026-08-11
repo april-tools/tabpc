@@ -229,11 +229,14 @@ class ProbabilisticCircuit(Model):
         return bpd.cpu(), total_log_likelihood.cpu(), mean_NLL.cpu()
     
 
-    def optimal_batch_size_for_sampling(self) -> int:
+    def optimal_batch_size_for_sampling(self, backward: bool | None = True) -> int:
         """
         Determine the optimal batch size for sampling by measuring peak memory
         usage with a small test batch and calculating the max batch size that
         fits in available GPU memory.
+
+        backward: whether or not to use backward sampling. Should be disabled for
+        conditional sampling.
 
         Returns:
             int: Optimal batch size for sampling
@@ -254,7 +257,7 @@ class ProbabilisticCircuit(Model):
 
         # Test sampling with a small batch
         test_batch_size = 10
-        sampling_query = SamplingQuery(self.circuit)
+        sampling_query = SamplingQuery(self.circuit, backward=backward)
 
         torch.cuda.reset_peak_memory_stats(device)
         _ = sampling_query(num_samples=test_batch_size)[0]
@@ -286,8 +289,8 @@ class ProbabilisticCircuit(Model):
         )
 
         samples = self._generate(
-            condition=tensor_condition.to(device), device=device, batch_size=batch_size, num_to_generate=num_to_generate
-        )
+            condition=tensor_condition.to(device), device=device, batch_size=batch_size, num_to_generate=num_to_generate, backward=False
+        ) # The current version of TabPC doesn't support backward conditional generation
 
         df_samples = (
             self.preprocessor.reverse_transform(samples)
@@ -305,17 +308,19 @@ class ProbabilisticCircuit(Model):
         device: str | None = None,
         condition: torch.Tensor | None = None,
         num_to_generate: int | None = None,
+        backward: bool | None = True,
     ) -> torch.Tensor:
         # if batch_size is None:
         #     batch_size = self.original_size
         if num_to_generate is None:
             num_to_generate = self.original_size
         if batch_size is None:
-            batch_size = self.optimal_batch_size_for_sampling()
+            batch_size = self.optimal_batch_size_for_sampling(backward=backward)
             print(f"Using optimal batch size for sampling: {batch_size}")
+        assert not (condition is not None and backward), "Backward sampling should be disabled for conditional sampling."
         if device is not None:
             self.circuit.to(device)
-        sampling_query = SamplingQuery(self.circuit)
+        sampling_query = SamplingQuery(self.circuit, backward=backward)
         torch.cuda.empty_cache()
         
         torch.cuda.memory.reset_peak_memory_stats()

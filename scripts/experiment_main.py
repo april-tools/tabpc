@@ -138,6 +138,7 @@ def update_results(*,
                    sample: bool = False,
                    evaluate: bool = False,
                    evaluate_baselines: bool = False,
+                   summarize: bool = False,
                    update_tables: bool = False,
                    ) -> None:
 
@@ -196,19 +197,21 @@ def update_results(*,
                 pattern=f"*{baseline_model}*.csv",
             )
 
-    # summarize results and update results csv
-    print('Summarizing results and updating results csv...')
-    try:
-        summarize_metrics(
-            results_folder='artifacts/metrics_results',
-            target_folder='artifacts/metrics_results_summary',
-            models_folder=ARTICLE_MODELS_FOLDER,
-            new_protocol=True,
-        )
-    except Exception as e:
-        print(f"Error summarizing metrics results: {e}")
-        print(f"Check that metric results exist in {METRICS_FOLDER} and are in the correct format.")
-        print("Skipping metric summarization.")
+    if summarize:
+        # summarize results and update results csv
+        print('Summarizing results and updating results csv...')
+        try:
+            summarize_metrics(
+                results_folder='artifacts/metrics_results',
+                target_folder='artifacts/metrics_results_summary',
+                models_folder=ARTICLE_MODELS_FOLDER,
+                new_protocol=True,
+                update_model_stats=True,
+            )
+        except Exception as e:
+            print(f"Error summarizing metrics results: {e}")
+            print(f"Check that metric results exist in {METRICS_FOLDER} and are in the correct format.")
+            print("Skipping metric summarization.")
 
     # rank CSVs and use these to and update latex tables
     if update_tables:
@@ -237,6 +240,7 @@ if __name__ == "__main__":
     parser.add_argument("--sample", "-s", action="store_true", help="Run sampling", default=False)
     parser.add_argument("--evaluate", "-e", action="store_true", help="Run evaluation metrics", default=False)
     parser.add_argument("--evaluate-baselines", "-b", action="store_true", help="Run evaluation metrics for baselines", default=False)
+    parser.add_argument("--summarize", action="store_true", help="Summarize scattered results CSVs", default=False)
     parser.add_argument("--update-tables", action="store_true", help="Update latex tables", default=False)
 
     args = parser.parse_args()
@@ -251,6 +255,7 @@ if __name__ == "__main__":
             sample=args.sample,
             evaluate=args.evaluate,
             evaluate_baselines=args.evaluate_baselines,
+            summarize=args.summarize,
             update_tables=args.update_tables,
         )
 

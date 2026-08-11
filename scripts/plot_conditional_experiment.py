@@ -4,7 +4,8 @@ import seaborn as sns
 import os
 import sys
 
-sys.append(".")
+sys.path.append(".")
+
 from src.util import find_files
 
 
