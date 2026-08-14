@@ -67,6 +67,30 @@ This script has multiple command-line arguments to enable or disable parts of th
 
 Results for this experiment are stored by default in `article_material/our_results` (as CSVs) and `article_material/article_tables` (as the corresponding LaTeX tables, formatted as in the paper).
 
+#### Generating data with TabPFN
+
+We include a script for generating data with TabPFN, `scripts/experiment_tabpfn.py`, as this is not present in the TabSyn repository unlike the other baselines. Data generated in this way should be placed in `artifacts/generated_data/TabPFN` for integration with the article pipeline.
+
+A new environment must also be created to be able to run TabPFN. To do this, create a new environment with Python 3.11.
+
+Then, install the version of `tabpfn-extensions` corresponding to what we use in the paper via
+```
+pip install "tabpfn-extensions[all] @ git+https://github.com/PriorLabs/tabpfn-extensions.git@7f84343b59ffb03fdecd4fb6a8576d0eea09db57"
+```
+Please also ensure that you install version 8.0.8 of the `tabpfn` package to ensure reproducibility, and that the version for the TabPFN checkpoints is TabPFN-3. Also ensure that the datasets are downloaded and processed [as above](#downloading-datasets).
+
+The first time you run the script, it will likely fail due to requiring the TabPFN model weights to be downloaded. You should also be asked to generate an API key to use TabPFN; follow the instructions from the pop-up to do this and enter it there. Note: this requires your compute source to have internet access. After doing this, kill the script and rerun to ensure that the correct number of datasets are generated.
+
+When running the script, specify your chosen dataset by `--dataset` and desired location for the generated data by `--output-data-dir` (recall you should set `artifacts/generated_data/TabPFN` if you want integration with the pipeline).
+
+- Other CLI options also available:
+	- `--num-repeats` controls how many datasets are generated. Default: 5.
+	- `--save-raw` saves raw generated data before inverting encoding (only recommended if you encounter problems with the inverting the encoder and want to store some intermediate result).
+	- `--overwrite` enables the overwriting of existing generated data.
+	- `--n-permutations` changes the number of feature permutations over which TabPFN averages to generate its data. We use their default value of 3. Increasing this improves sample robustness at the cost of a linear increase in sampling time.
+	- `--use-only-ordinal` enables the use of just the ordinal encoder from sklearn. By default we use (the required parts of) the TabPC preprocessing pipeline for comparability with other methods.
+	- `--max-failures` controls how many times generation is attempted before skipping to the next repeat. Default: 3.
+
 ### BPD vs C2ST experiment
 
 To replicate the BPD vs C2ST experiment discussed in [Section 4.2](https://arxiv.org/pdf/2603.23016#subsection.4.2), run:
