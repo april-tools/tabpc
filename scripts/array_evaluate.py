@@ -36,26 +36,30 @@ OVERWRITE = False
 GENERATED_DATA_FOLDER = 'artifacts/generated_data'
 ORIGINAL_DATA_FOLDER = 'data'
 TARGET_FOLDER = 'artifacts/metrics_results'
-NAMES = ['adult', 'default', 'shoppers', 'magic', 'beijing', 'news', 'diabetes',
-        'insurance']
+NAMES = ['adult', 'default', 'shoppers', 'magic', 'beijing', 'news', 'diabetes']
 
 def find_related_dataset(file_path: str) -> str:
     for name in NAMES:
         if name in file_path:
             return name
-    raise ValueError(f"Unknown dataset for file: {file_path}")
+    raise ValueError(f"Unknown dataset for file: {file_path}. Try setting --original-data-path if you are using a new dataset.")
 
-def evaluate_single_file(generated_data_path, generated_data_folder, original_data_folder, target_folder, metric, overwrite, use_train_set=True):
+def evaluate_single_file(generated_data_path, generated_data_folder, original_data_folder, target_folder, metric, overwrite, use_train_set=True, manual_original_data_path=None):
     #printc(f"Evaluating {generated_data_path} with metric {metric.name()}", 'yellow')
-    result_dir = os.path.join(os.path.dirname(generated_data_path).replace(generated_data_folder, target_folder), metric.name())
+    result_dir = os.path.join(target_folder, os.path.dirname(generated_data_path).split(os.sep)[-1], metric.name())
     os.makedirs(result_dir, exist_ok=True)
     result_path = os.path.join(result_dir, os.path.basename(generated_data_path).replace('.csv', '.json'))
 
     if (not os.path.exists(result_path)) or overwrite:
-        if use_train_set:
-            original_data_path = os.path.join(original_data_folder, find_related_dataset(generated_data_path))
-        else: # Evaluate against the test set instead of the train set
-            original_data_path = os.path.join(original_data_folder, find_related_dataset(generated_data_path), 'test.csv')
+        # Allow for user-specified original data path in case they have their own dataset
+        if manual_original_data_path:
+            print("Using manual data path:", manual_original_data_path)
+            original_data_path = manual_original_data_path
+        else:
+            if use_train_set:
+                original_data_path = os.path.join(original_data_folder, find_related_dataset(generated_data_path))
+            else: # Evaluate against the test set instead of the train set
+                original_data_path = os.path.join(original_data_folder, find_related_dataset(generated_data_path), 'test.csv')
         
         try:
             metric_result = generative_performance_metric(
@@ -74,7 +78,8 @@ def evaluate_single_file(generated_data_path, generated_data_folder, original_da
             gc.collect()
 
 
-def evaluate(*, generated_data_folder, original_data_folder, target_folder, metrics: dict[Metric, int], overwrite=False, pattern="*.csv", randomize_order=False, use_train_set=True):
+def evaluate(*, generated_data_folder, original_data_folder, target_folder, metrics: dict[Metric, int],
+             overwrite=False, pattern="*.csv", randomize_order=False, use_train_set=True, original_data_path=None):
     os.makedirs(target_folder, exist_ok=True)
     generated_files = find_files(starting_folder=generated_data_folder, pattern=pattern)
     
@@ -99,7 +104,8 @@ def evaluate(*, generated_data_folder, original_data_folder, target_folder, metr
             target_folder=target_folder,
             metric=metric,
             overwrite=overwrite,
-            use_train_set=use_train_set
+            use_train_set=use_train_set,
+            manual_original_data_path=original_data_path,
         )
 
         if max_workers is None:
@@ -117,6 +123,8 @@ if __name__ == "__main__":
     parser.add_argument('--generated-data-folder', type=str, default=GENERATED_DATA_FOLDER, help=f'Folder containing generated data (default: {GENERATED_DATA_FOLDER})')
     parser.add_argument('--overwrite', action='store_true', default=OVERWRITE, help='Whether to overwrite existing results (default: False)')
     parser.add_argument('--base-metrics', action='store_true', help='Whether to evaluate only the base metrics instead of all metrics (default: False)')
+    parser.add_argument('--original-data-path', default=None, required=False, help='Path to the original data csv for evaluation. \
+                         Fallback option in case dataset is not part of original benchmark. (default: None)')
     args = parser.parse_args()
 
     pattern = args.pattern
@@ -124,6 +132,7 @@ if __name__ == "__main__":
     generated_data_folder = args.generated_data_folder
     original_data_folder = args.original_data_folder
     overwrite = args.overwrite
+    original_data_path = args.original_data_path
 
     metrics = METRICS if args.base_metrics else ALL_METRICS
 
@@ -135,4 +144,5 @@ if __name__ == "__main__":
         overwrite=overwrite,
         randomize_order=True,
         pattern=pattern,
+        original_data_path=original_data_path,
     )
