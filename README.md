@@ -170,15 +170,49 @@ To run a specific experiment (i.e. combination of model and dataset), run one of
 
 As a simple baseline, we also include `train_scripts/copy_data.py` which simply copies data (as a sanity check to be able to achieve 'perfect' performance). There is also a test script `train_scripts/test.py`.
 
+## Using your own dataset
+
+We also add functionality for using your own datasets. This uses a preprocessing script adapted from TabDiff.
+
+To do this, place your data in a chosen directory, in its own named directory, e.g. `CUSTOM_DATA/custom_dataset/custom_dataset.csv`. Then you can run
+```bash
+python dataset_scripts/process_dataset.py --dataname custom_dataset --data-root CUSTOM_DATA
+```
+
+**Important considerations**:
+- The processing script requires the CSV format.
+- Values within a row should be comma-separated.
+- The first row should contain the header names for each column.
+
+Additionally, you must create a json file `custom_dataset.json` containing the metadata for your dataset:
+```json
+{
+    "name": "<custom_dataset>",
+    "task_type": "[NAME_OF_TASK]", # binclass or regression
+    "header": "infer",
+    "column_names": null,
+    "num_col_idx": [LIST],  # list of indices of numerical columns
+    "cat_col_idx": [LIST],  # list of indices of categorical columns
+    "target_col_idx": [LIST], # list of indices of the target columns (for MLE)
+    "file_type": "csv",
+    "data_path": "<CUSTOM_DATA>/<custom_dataset>/<custom_dataset>.csv",
+    "test_path": null,
+    "val_path": null
+}
+```
+
+To train a model on a processed dataset, you can use `train_scripts/pc_lls.py` by specifying `--path` to the processed training set, alongside chosen hyperparameters [as described above](#customisable-options). Once you have generated data from your model, to compute metrics you can use `scripts/array_evaluate.py`, e.g. by:
+```bash
+python scripts/array_evaluate.py --target-folder [DESIRED-FOLDER] --original-data-path <CUSTOM_DATA>/<custom_dataset>/<custom_dataset>.csv --generated-data-folder [DESIRED-FOLDER]
+```
+Certain metrics may not work, such as MLE. This can be patched in the future if it is useful; please open an issue if so. This functionality has not been rigorously tested, so please also open an issue if you run into problems.
+
 ## Features to be added
 
 We have several additional features which require some cleaning and reorganisation before they are added to this repository. These include:
 - A script for running and collecting the results of the ablation experiment, as we do in [Section D.2](https://arxiv.org/pdf/2603.23016#subsection.D.2).
-- A script for processing a user-provided dataset into the form required by the codebase.
 - A script for replicating the FF (trained) vs FF (random) experiment, as we discuss in [Section 2.2](https://arxiv.org/pdf/2603.23016#subsection.2.2).
 - A script for generating critical difference diagrams (CDDs), as we report in [Section E.2](https://arxiv.org/pdf/2603.23016#subsection.E.2).
-
-Additionally, we plan to create a notebook which demonstrates some of the key features of the codebase, such as training and sampling from TabPC.
 
 Finally, we also plan to upload our final trained model checkpoints and all generated data. This repo will be updated with the link once this is complete.
 
